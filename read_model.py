@@ -16,7 +16,7 @@ lemmatizer = WordNetLemmatizer()
 words = pickle.load(open('./backend/words.pkl','rb'))
 classes = pickle.load(open('./backend/classes.pkl','rb'))
 
-model = load_model('./backend/chatbot_model.h5')
+model = load_model('./backend/chatbot_model')
 
 
 
