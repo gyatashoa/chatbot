@@ -1,5 +1,4 @@
-from urllib import request
-from fastapi import FastAPI,requests
+from fastapi import FastAPI
 import uvicorn
 import numpy as np
 import os
@@ -9,8 +8,8 @@ import json
 import random
 
 from nltk.stem import WordNetLemmatizer
-from backend.answer import Answer
-from backend.question import Question
+from answer import Answer
+from question import Question
 
 from tensorflow.keras.models import load_model
 
@@ -69,4 +68,4 @@ async def get_answer(data:Question):
     return Answer(response=response)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host='localhost', port=os.environ.get("PORT",8000))
+    uvicorn.run(app, host='0.0.0.0', port=os.environ.get("PORT",8000))
