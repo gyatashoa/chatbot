@@ -16,7 +16,7 @@ lemmatizer = WordNetLemmatizer()
 words = pickle.load(open('./backend/words.pkl','rb'))
 classes = pickle.load(open('./backend/classes.pkl','rb'))
 
-model = load_model('./backend/chatbot_model')
+model = load_model('./backend/chatbot_model_v2')
 
 
 
@@ -38,7 +38,8 @@ def get_numerical_representation_of_words(sentence):
 def predict(sentence):
     rep = get_numerical_representation_of_words(sentence)
     prediction = model.predict(np.array([rep]))[0]
-    THRESHOLD  = 0.25
+    # print(prediction)
+    THRESHOLD  = 0.005
     results = [[i,r] for i,r in enumerate(prediction) if r > THRESHOLD]
     results.sort(key=lambda x: x[1],reverse=True)
     return_list = []
@@ -48,6 +49,7 @@ def predict(sentence):
 
 
 def get_response(predicted_class):
+    # print(predicted_class)
     with open('./backend/data/Intent.json','rb') as file:
         intents = json.loads(file.read())['intents']
         response = None
@@ -60,5 +62,6 @@ def get_response(predicted_class):
 
 while True:
     sentence = input('Enter your sentence: ')
+    # predict(sentence)
     print(get_response(predict(sentence)[0]['intent']))
     
